@@ -23,7 +23,6 @@ function App() {
 	}, []);
 
 	const updateFilters = async (newFilters: Filters) => {
-		console.log(newFilters);
 		filters.current = newFilters;
 		if (filters.current.networkDelay === 0)
 			setKanjiList(await getKanjiByLevel(filters.current.level));

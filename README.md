@@ -15,6 +15,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+### `yarn cypress`
+
+Be sure to `yarn start` before running this for this basic E2E test.
+
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.\
