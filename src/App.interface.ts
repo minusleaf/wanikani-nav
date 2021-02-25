@@ -5,6 +5,8 @@ export interface Kanji {
 	component_subject_ids: number[];
 	level: number;
 	meanings: Meaning[];
+	meaning_mnemonic: string;
+	reading_mnemonic: string;
 }
 
 export interface Meaning {
@@ -14,7 +16,7 @@ export interface Meaning {
 }
 
 export interface KanjiReading {
-	reading: string;
+	reading: "onyomi" | "kunyomi";
 	type: string;
 }
 

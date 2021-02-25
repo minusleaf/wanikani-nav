@@ -57,11 +57,13 @@ const FilterTab = ({ updateFilters }: FilterTabInterface) => {
 							inputType="input"
 						/>
 						{errors.networkDelay && touched.networkDelay ? (
-							<div>{errors.networkDelay}</div>
+							<Text my="0.25rem" color="red">
+								{errors.networkDelay}
+							</Text>
 						) : null}
 						<Button
 							mt="1rem"
-							backgroundColor="#526bd9"
+							backgroundColor="#15a12c"
 							color="white"
 							type="submit"
 							width="100%"

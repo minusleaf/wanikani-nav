@@ -4,6 +4,8 @@ import FilterTab from "./components/FilterTab/FilterTab";
 import { Filters, Kanji } from "./App.interface";
 import { getKanjiByLevel } from "./services";
 import KanjiResultsSection from "./components/KanjiResultsSection/KanjiResultsSection";
+import PopupWindow from "./components/PopupWindow/PopupWindow";
+import KanjiDetails from "./components/KanjiDetails/KanjiDetails";
 
 function App() {
 	const filters = useRef<Filters>({
@@ -23,13 +25,27 @@ function App() {
 	const updateFilters = async (newFilters: Filters) => {
 		console.log(newFilters);
 		filters.current = newFilters;
-		setKanjiList(await getKanjiByLevel(filters.current.level));
+		if (filters.current.networkDelay === 0)
+			setKanjiList(await getKanjiByLevel(filters.current.level));
+		else
+			setTimeout(
+				async () => setKanjiList(await getKanjiByLevel(filters.current.level)),
+				filters.current.networkDelay
+			);
 	};
 
 	return (
 		<Flex className="App" width="100vw" height="100vh">
 			<FilterTab updateFilters={updateFilters} />
-			<KanjiResultsSection kanjiList={kanjiList} />
+			<KanjiResultsSection
+				kanjiList={kanjiList}
+				setSelectedKanji={setSelectedKanji}
+			/>
+			{selectedKanji && (
+				<PopupWindow title="Kanji Viewer" onCloseAction={setSelectedKanji}>
+					<KanjiDetails kanji={selectedKanji} />
+				</PopupWindow>
+			)}
 		</Flex>
 	);
 }

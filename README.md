@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# Getting Started with Wanikani Navigator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Add a `.env` file containing the key REACT_APP_API_KEY. Copy in the key from your Wanikani account (if interviewer, I'll send a key).
+- Run `yarn` to get relevant packages.
 
 ## Available Scripts
 
