@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef, useState, useEffect } from "react";
+import { Flex } from "@chakra-ui/react";
+import FilterTab from "./components/FilterTab/FilterTab";
+import { Filters, Kanji } from "./App.interface";
+import { getKanjiByLevel } from "./services";
+import KanjiResultsSection from "./components/KanjiResultsSection/KanjiResultsSection";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const filters = useRef<Filters>({
+		level: 0,
+		networkDelay: 0,
+	});
+	const [kanjiList, setKanjiList] = useState<Kanji[]>([]);
+	const [selectedKanji, setSelectedKanji] = useState<Kanji>();
+
+	useEffect(() => {
+		const getKanjiEffect = async () => {
+			return setKanjiList(await getKanjiByLevel(filters.current.level));
+		};
+		getKanjiEffect();
+	}, []);
+
+	const updateFilters = async (newFilters: Filters) => {
+		console.log(newFilters);
+		filters.current = newFilters;
+		setKanjiList(await getKanjiByLevel(filters.current.level));
+	};
+
+	return (
+		<Flex className="App" width="100vw" height="100vh">
+			<FilterTab updateFilters={updateFilters} />
+			<KanjiResultsSection kanjiList={kanjiList} />
+		</Flex>
+	);
 }
 
 export default App;
