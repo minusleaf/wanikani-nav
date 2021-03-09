@@ -3,6 +3,14 @@
 - Add a `.env` file to root containing the key REACT_APP_API_KEY. Copy in the key from your Wanikani account (if interviewer, I'll send the file).
 - Run `yarn` to get relevant packages.
 
+## Developer Comments
+• Managing network delays and async calls:
+    ◦ Would likely have had a dedicated state that handles network status.
+    ◦ For instance, upon filter submission I would set the network state to “loading” and use that to indicate to the user something’s loading in the background.
+    ◦ Upon success/failure of API call, I’d update the state accordingly. On failure there would be some error message asking the user to try again or some issue was found.
+    ◦ If the app were much larger, I’d make use of redux toolkit and take advantage of default middleware like redux-thunk for handling calls.
+• API key would definitely not have been used in the client side for security reasons. Normally, would call upon backend from which I'd receive tokens that I can use to authorize calls to retrieve only the data I need to display.
+
 ## Available Scripts
 
 In the project directory, you can run:
