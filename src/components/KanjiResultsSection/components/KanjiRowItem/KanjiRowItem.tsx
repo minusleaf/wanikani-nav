@@ -1,6 +1,8 @@
 import { Flex, Text } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 import { Kanji } from "../../../../App.interface";
+import { openPopupWindow } from "../../../../redux/popupWindowSlice";
 
 interface KanjiRowItemInterface {
 	kanji: Kanji;
@@ -9,6 +11,13 @@ interface KanjiRowItemInterface {
 
 const KanjiRowItem = ({ kanji, setSelectedKanji }: KanjiRowItemInterface) => {
 	const [isHovered, setIsHovered] = useState<boolean>(false);
+	const dispatch = useDispatch();
+	const handleOnClick = () => {
+		return function () {
+			dispatch(openPopupWindow());
+			setSelectedKanji(kanji);
+		};
+	};
 
 	return (
 		<Flex
@@ -19,7 +28,7 @@ const KanjiRowItem = ({ kanji, setSelectedKanji }: KanjiRowItemInterface) => {
 			width="100%"
 			justifyContent="space-between"
 			alignItems="center"
-			onClick={() => setSelectedKanji(kanji)}
+			onClick={handleOnClick()}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 			cursor={isHovered ? "pointer" : "auto"}
